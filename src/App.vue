@@ -3,6 +3,3 @@
   <router-view />
 </template>
 
-<script setup>
-import NavBar from '@/components/layouts/Navbar.vue'
-</script>

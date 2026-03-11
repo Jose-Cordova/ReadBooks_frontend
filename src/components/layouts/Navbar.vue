@@ -1,312 +1,103 @@
 <template>
-  <nav class="navbar">
-    <div class="navbar-container">
+  <nav class="fixed w-full z-50 top-0 left-0 border-b border-purple-900" style="background-color: #1B1226;">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center gap-6">
 
       <!-- Logo -->
-      <a href="#" class="navbar-logo">
-        <i class="pi pi-book logo-icon"></i>
-        <span class="logo-text"><strong>ReadBooks</strong></span>
-      </a>
+      <router-link to="/" class="flex items-center gap-2 text-xl font-bold text-white shrink-0">
+        <i class="pi pi-book text-purple-400 text-2xl"></i>
+        <span>ReadBooks</span>
+      </router-link>
 
       <!-- Links principales -->
-      <div class="navbar-links">
-        <a href="#" class="nav-link">Catalogo</a>
-        <a href="#" class="nav-link">Mi Biblioteca</a>
+      <div class="hidden md:flex items-center gap-6">
+        <router-link to="/catalogo" class="text-purple-300 hover:text-white transition font-medium text-sm">
+          Catalogo
+        </router-link>
+        <router-link to="/mi-biblioteca" class="text-purple-300 hover:text-white transition font-medium text-sm">
+          Mi Biblioteca
+        </router-link>
       </div>
 
-      <!-- Acciones del lado derecho -->
-      <div class="navbar-actions">
+      <!-- Acciones derecha -->
+      <div class="hidden md:flex items-center gap-3 ml-auto">
 
         <!-- Carrito -->
-        <a href="#" class="cart-btn">
+        <router-link to="/carrito" class="text-purple-300 hover:text-white hover:bg-purple-900 transition p-2 rounded-full text-lg flex items-center">
           <i class="pi pi-shopping-cart"></i>
-        </a>
+        </router-link>
 
-        <!-- Modo oscuro toggle -->
-        <button class="icon-btn" @click="toggleTheme" :title="isDark ? 'Modo claro' : 'Modo oscuro'">
-          <i :class="isDark ? 'pi pi-sun' : 'pi pi-moon'"></i>
+        <!-- Toggle tema -->
+        <button @click="toggleTema" class="text-purple-300 hover:text-white hover:bg-purple-900 transition p-2 rounded-full flex items-center">
+          <i :class="oscuro ? 'pi pi-sun' : 'pi pi-moon'"></i>
         </button>
 
-        <!-- Botones auth estáticos -->
-        <a href="#" class="btn-outline">
+        <!-- Iniciar sesion -->
+        <router-link to="/login" class="flex items-center gap-1 px-4 py-1.5 border border-purple-400 rounded-lg text-purple-400 hover:bg-purple-900 transition text-sm font-semibold">
           <i class="pi pi-sign-in"></i>
           Iniciar Sesion
-        </a>
-        <a href="#" class="btn-solid">
+        </router-link>
+
+        <!-- Registrarse -->
+        <router-link to="/registro" class="flex items-center gap-1 px-4 py-1.5 bg-purple-500 hover:bg-purple-700 transition rounded-lg text-white text-sm font-semibold">
           <i class="pi pi-user-plus"></i>
           Registrarse
-        </a>
+        </router-link>
       </div>
 
-      <!-- Hamburger (mobile) -->
-      <button class="hamburger" @click="isOpen = !isOpen">
-        <i :class="isOpen ? 'pi pi-times' : 'pi pi-bars'"></i>
+      <!-- Hamburger mobile -->
+      <button @click="menuAbierto = !menuAbierto" class="md:hidden ml-auto text-purple-300 text-2xl focus:outline-none">
+        <i :class="menuAbierto ? 'pi pi-times' : 'pi pi-bars'"></i>
       </button>
     </div>
 
-    <!-- Mobile menu -->
+    <!-- Menu mobile -->
     <transition name="slide">
-      <div v-if="isOpen" class="mobile-menu">
-        <a href="#" class="mobile-link">
+      <div v-if="menuAbierto" class="md:hidden border-t border-purple-900 px-6 py-6 flex flex-col gap-4" style="background-color: #1B1226;">
+        <router-link to="/catalogo" @click="menuAbierto = false" class="text-purple-300 hover:text-white transition font-medium flex items-center gap-2">
           <i class="pi pi-th-large"></i> Catalogo
-        </a>
-        <a href="#" class="mobile-link">
+        </router-link>
+        <router-link to="/mi-biblioteca" @click="menuAbierto = false" class="text-purple-300 hover:text-white transition font-medium flex items-center gap-2">
           <i class="pi pi-bookmark"></i> Mi Biblioteca
-        </a>
+        </router-link>
 
-        <div class="mobile-auth">
-          <a href="#" class="btn-outline full">
+        <div class="flex flex-col gap-3 pt-4 border-t border-purple-900">
+          <router-link to="/login" @click="menuAbierto = false" class="flex items-center justify-center gap-2 px-4 py-2 border border-purple-400 rounded-lg text-purple-400 hover:bg-purple-900 transition text-sm font-semibold">
             <i class="pi pi-sign-in"></i> Iniciar Sesion
-          </a>
-          <a href="#" class="btn-solid full">
+          </router-link>
+          <router-link to="/registro" @click="menuAbierto = false" class="flex items-center justify-center gap-2 px-4 py-2 bg-purple-500 hover:bg-purple-700 transition rounded-lg text-white text-sm font-semibold">
             <i class="pi pi-user-plus"></i> Registrarse
-          </a>
+          </router-link>
         </div>
       </div>
     </transition>
   </nav>
 
-  <div class="navbar-spacer"></div>
+  <!-- Espaciado para que el contenido no quede debajo del navbar -->
+  <div class="h-16"></div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import 'primeicons/primeicons.css'
 
-const isOpen = ref(false)
-const isDark = ref(false)
+const menuAbierto = ref(false)
+const oscuro = ref(false)
 
-const toggleTheme = () => {
-  isDark.value = !isDark.value
-  document.documentElement.classList.toggle('dark', isDark.value)
+const toggleTema = () => {
+  oscuro.value = !oscuro.value
+  document.documentElement.classList.toggle('dark', oscuro.value)
 }
 </script>
 
-<style scoped>
-:root {
-  --radius: 8px;
-}
-
-/* Navbar base */
-.navbar {
-background-color: #1B1226;
-}
-
-.navbar-container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.navbar-spacer {
-  height: 64px;
-}
-
-/* Logo */
-.navbar-logo {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  text-decoration: none;
-  font-size: 1.25rem;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.logo-icon {
-  font-size: 1.4rem;
-  color: #9b7fe8;
-}
-
-.logo-text strong {
-  color: #ffffff;
-  letter-spacing: -0.02em;
-}
-
-/* Nav links */
-.navbar-links {
-  display: flex;
-  gap: 1.5rem;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-.nav-link {
-  text-decoration: none;
-  color: #b0a8c8;
-  font-size: 0.95rem;
-  font-weight: 500;
-  transition: color 0.2s;
-  letter-spacing: 0.01em;
-}
-
-.nav-link:hover {
-  color: #ffffff;
-}
-
-/* Actions */
-.navbar-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-left: auto;
-  flex-shrink: 0;
-}
-
-/* Carrito */
-.cart-btn {
-  text-decoration: none;
-  font-size: 1.2rem;
-  color: #b0a8c8;
-  display: flex;
-  align-items: center;
-  padding: 6px;
-  border-radius: 50%;
-  transition: color 0.2s, background 0.2s;
-}
-
-.cart-btn:hover {
-  color: #ffffff;
-  background: rgba(155, 127, 232, 0.15);
-}
-
-/* Icon button tema */
-.icon-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.1rem;
-  color: #b0a8c8;
-  padding: 6px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  transition: color 0.2s, background 0.2s;
-}
-
-.icon-btn:hover {
-  color: #ffffff;
-  background: rgba(155, 127, 232, 0.15);
-}
-
-/* Btn outline */
-.btn-outline {
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 6px 14px;
-  border: 1.5px solid #9b7fe8;
-  border-radius: var(--radius);
-  color: #9b7fe8;
-  font-size: 0.85rem;
-  font-weight: 600;
-  background: transparent;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-  white-space: nowrap;
-  font-family: inherit;
-}
-
-.btn-outline:hover {
-  background: rgba(155, 127, 232, 0.15);
-  color: #c4a8ff;
-}
-
-/* Btn solid */
-.btn-solid {
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 6px 16px;
-  border-radius: var(--radius);
-  background: #9b7fe8;
-  color: #ffffff;
-  font-size: 0.85rem;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s;
-  white-space: nowrap;
-  font-family: inherit;
-}
-
-.btn-solid:hover {
-  background: #7c5fd4;
-}
-
-/* Hamburger */
-.hamburger {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 1.3rem;
-  cursor: pointer;
-  color: #b0a8c8;
-  margin-left: auto;
-  padding: 4px;
-}
-
-/* Mobile menu */
-.mobile-menu {
-  background: #1B1226;
-}
-
-.mobile-link {
-  text-decoration: none;
-  color: #b0a8c8;
-  font-size: 1rem;
-  font-weight: 500;
-  padding: 0.25rem 0;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: color 0.2s;
-}
-
-.mobile-link:hover {
-  color: #ffffff;
-}
-
-.mobile-auth {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  padding-top: 0.5rem;
-  border-top: 1px solid #2e1f45;
-}
-
-.full {
-  width: 100%;
-  justify-content: center;
-}
-
-/* Transición */
+<style>
 .slide-enter-active,
 .slide-leave-active {
-  transition: all 0.25s ease;
+  transition: all 0.3s ease;
 }
 
 .slide-enter-from,
 .slide-leave-to {
   opacity: 0;
-  transform: translateY(-8px);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .navbar-links,
-  .navbar-actions {
-    display: none;
-  }
-
-  .hamburger {
-    display: block;
-  }
+  transform: translateY(-10px);
 }
 </style>
