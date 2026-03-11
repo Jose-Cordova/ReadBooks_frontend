@@ -1,9 +1,9 @@
 <template>
-  <nav class="fixed w-full z-50 top-0 left-0 border-b border-purple-900" style="background-color: #1B1226;">
+  <nav class="fixed w-full z-50 top-0 left-0 border-b border-purple-900 bg-[#1B1226]">
     <div class="max-w-7xl mx-auto px-6 h-16 flex items-center gap-6">
 
       <!-- Logo -->
-      <router-link to="/" class="flex items-center gap-2 text-xl font-bold text-white shrink-0">
+      <router-link class="flex items-center gap-2 text-xl font-bold text-white shrink-0">
         <i class="pi pi-book text-purple-400 text-2xl"></i>
         <span>ReadBooks</span>
       </router-link>
@@ -52,7 +52,7 @@
 
     <!-- Menu mobile -->
     <transition name="slide">
-      <div v-if="menuAbierto" class="md:hidden border-t border-purple-900 px-6 py-6 flex flex-col gap-4" style="background-color: #1B1226;">
+      <div v-if="menuAbierto" class="md:hidden border-t border-purple-900 px-6 py-6 flex flex-col gap-4 bg-[#1B1226]">
         <router-link to="/catalogo" @click="menuAbierto = false" class="text-purple-300 hover:text-white transition font-medium flex items-center gap-2">
           <i class="pi pi-th-large"></i> Catalogo
         </router-link>

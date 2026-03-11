@@ -31,12 +31,8 @@ export const useAuthStore = defineStore('auth', {
         this.token = data.access_token
         this.user = data.user
 
-        // Redirección según rol
-        if (this.isAdmin) {
-          router.push('/dashboard')
-        } else {
-          router.push('/')
-        }
+        // Redirección siempre a home
+        router.push('/')
 
       } catch (error) {
         console.error('Error en login:', error)
