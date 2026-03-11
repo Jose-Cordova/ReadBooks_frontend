@@ -14,9 +14,11 @@ import "primevue/resources/primevue.css";
 import "primeicons/primeicons.css";
 
 const app = createApp(App);
+//Creamos instancia de pinia
 const pinia = createPinia();
+//Se una el plugin de persistencia para mantener la sesion
 pinia.use(piniaPluginPersistedstate);
-
+//Hacemos que el vue(app) use pinia
 app.use(pinia);
 app.use(router);
 app.use(PrimeVue);
