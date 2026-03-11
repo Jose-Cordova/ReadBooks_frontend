@@ -22,9 +22,9 @@
       <div class="hidden md:flex items-center gap-3 ml-auto">
 
         <!-- Carrito -->
-        <router-link to="/carrito" class="text-purple-300 hover:text-white hover:bg-purple-900 transition p-2 rounded-full text-lg flex items-center">
+        <button @click="carritoStore.toggleCarrito()" class="text-purple-300 hover:text-white hover:bg-purple-900 transition p-2 rounded-full text-lg flex items-center">
           <i class="pi pi-shopping-cart"></i>
-        </router-link>
+        </button>
 
         <!-- Toggle tema -->
         <button @click="toggleTema" class="text-purple-300 hover:text-white hover:bg-purple-900 transition p-2 rounded-full flex items-center">
@@ -79,7 +79,9 @@
 <script setup>
 import { ref } from 'vue'
 import 'primeicons/primeicons.css'
+import { useCarritoStore } from '@/stores/carritoStore'
 
+const carritoStore = useCarritoStore();
 const menuAbierto = ref(false)
 const oscuro = ref(false)
 
