@@ -25,7 +25,7 @@
         {{ libro.descripcion }}
       </p>
 
-      <div class="flex justify-between items-center mt-4">
+      <div class="flex flex-col sm:flex-row justify-between items-center mt-4 gap-3">
         <span class="text-2xl font-bold">
           ${{libro.precio_actual}}
         </span>

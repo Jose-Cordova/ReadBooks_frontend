@@ -10,7 +10,7 @@
         No se encontraron libros que coincidan con tu búsqueda.
       </div>
 
-      <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+      <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         <LibroCard
           v-for="libro in librosStore.filteredLibros"
           :key="libro.id"

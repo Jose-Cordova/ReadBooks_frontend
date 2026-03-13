@@ -2,7 +2,9 @@
   <div class="min-h-screen flex items-center justify-center bg-gray-100 px-4">
     <div class="w-full max-w-md bg-white shadow-xl rounded-2xl p-8">
       <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Crear Usuario</h2>
-      <div v-if="errorMessage" class="mb-4 p-3 text-sm text-red-600 bg-red-100 rounded-lg">
+      <div v-if="errorMessage"
+           class="mb-4 p-3 text-sm font-bold text-black bg-red-200 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+        <i class="pi pi-exclamation-circle mr-2"></i>
         {{ errorMessage }}
       </div>
 
@@ -84,7 +86,7 @@ const sendRegister = async () => {
 
   try {
     if(form.password !== form.confirm){
-        errorMessage.value = "Las contraseñas no coinciden, verifique";
+        errorMessage.value = "Las contraseñas no coinciden.";
         return;
     }
     await authStore.register(form);

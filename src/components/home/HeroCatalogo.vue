@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-4 pt-6 text-center space-y-4">
+  <div class="container mx-auto px-4 text-center space-y-4">
     <h1 class="text-4xl md:text-5xl font-extrabold font-serif text-[#1a1625]">
       Nuestro Catálogo de Libros
     </h1>

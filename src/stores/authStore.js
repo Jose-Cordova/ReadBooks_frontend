@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { useCarritoStore } from './carritoStore'
 import api from '@/services/api'
 import router from '@/router'
 
@@ -28,6 +29,9 @@ export const useAuthStore = defineStore('auth', {
       try {
         const { data } = await api.post('/auth/login', credentials)
 
+        const carritoStore = useCarritoStore()
+        carritoStore.pagoSeleccionado = null
+
         this.token = data.access_token
         this.user = data.user
 
@@ -36,7 +40,7 @@ export const useAuthStore = defineStore('auth', {
 
       } catch (error) {
         console.error('Error en login:', error)
-        //throw error
+        throw error
       }
     },
 

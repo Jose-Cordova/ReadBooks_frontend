@@ -9,7 +9,7 @@
          @click.stop>
 
       <!-- Cabecera -->
-      <div class="flex justify-between items-start mb-6 border-b-2 border-black pb-4">
+      <div class="flex justify-between items-start mb-6 border-b-4 border-black pb-4">
         <div>
           <h2 class="text-2xl font-bold font-serif text-[#1a1625]">
             Carrito de Compras  ({{ carritoStore.cantidadLibros }})
@@ -51,14 +51,33 @@
         </div>
       </div>
 
+       <!-- Sección de Selección de Pago -->
+      <div v-if="carritoStore.items.length > 0" class="mt-2 mb-2">
+        <div class="mt-auto pt-3 border-t-4 border-black"></div>
+        <p class="font-bold font-serif text-lg mb-2 uppercase">
+          Selecciona Método de Pago:
+        </p>
+        <div class="grid grid-cols-2 gap-3">
+          <button
+            v-for="metodo in carritoStore.metodosPagos"
+            :key="metodo.id"
+            @click="carritoStore.setMetodoPago(metodo.id)"
+            class="p-1 border-2 border-black font-bold text-xs uppercase transition-all duration-200"
+            :class="carritoStore.pagoSeleccionado === metodo.id ? 'bg-black text-white translate-x-1 translate-y-1 shadow-none' : 'bg-white text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-gray-100'">
+            {{ metodo.nombre }}
+          </button>
+        </div>
+      </div>
+
       <!-- Footer Subtotal y Pago -->
-      <div class="mt-auto pt-6 border-t-4 border-black">
+      <div class="mt-auto pt-3 border-t-4 border-black">
         <div class="flex justify-between items-center mb-6">
           <span class="text-2xl font-bold font-serif">Subtotal:</span>
-          <span class="text-3xl font-bold text-black">${{ carritoStore.totalPagar}}</span>
+          <span class="text-2xl font-bold text-black">${{ carritoStore.totalPagar}}</span>
         </div>
-
-        <button class="w-full bg-[#1a1625] text-white py-4 border-2 border-black font-bold text-xl uppercase tracking-widest shadow-[6px_6px_0px_0px_rgba(0,0,0,0.3)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all active:bg-black">
+        <button
+          :disabled="!carritoStore.cantidadLibros > 0 || !carritoStore.pagoSeleccionado"
+          class="w-full bg-[#1a1625] disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none disabled:translate-x-0 disabled:translate-y-0 text-white py-2 border-2 border-black font-bold text-xl uppercase tracking-widest shadow-[6px_6px_0px_0px_rgba(0,0,0,0.3)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all active:bg-black">
           Proceder al Pago
         </button>
       </div>
@@ -67,8 +86,12 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue'
 import { useCarritoStore } from '@/stores/carritoStore'
 
+onMounted(() => {
+  carritoStore.fetchMetodosPagos(); // Pedimos los métodos al backend
+})
 const carritoStore = useCarritoStore()
 
 const getImageUrl = (url) => `http://localhost:8000/${url}`
