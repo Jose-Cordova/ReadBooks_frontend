@@ -73,9 +73,10 @@
       <div class="mt-auto pt-3 border-t-4 border-black">
         <div class="flex justify-between items-center mb-6">
           <span class="text-2xl font-bold font-serif">Subtotal:</span>
-          <span class="text-2xl font-bold text-black">${{ carritoStore.totalPagar}}</span>
+          <span class="text-2xl font-bold text-black">${{ carritoStore.totalPagar.toFixed(2)}}</span>
         </div>
         <button
+          @click="irPago"
           :disabled="!carritoStore.cantidadLibros > 0 || !carritoStore.pagoSeleccionado"
           class="w-full bg-[#1a1625] disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none disabled:translate-x-0 disabled:translate-y-0 text-white py-2 border-2 border-black font-bold text-xl uppercase tracking-widest shadow-[6px_6px_0px_0px_rgba(0,0,0,0.3)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all active:bg-black">
           Proceder al Pago
@@ -88,11 +89,18 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useCarritoStore } from '@/stores/carritoStore'
+import { useRouter } from 'vue-router';
 
 onMounted(() => {
   carritoStore.fetchMetodosPagos(); // Pedimos los métodos al backend
 })
+const router = useRouter()
 const carritoStore = useCarritoStore()
+
+const irPago = () => {
+  carritoStore.toggleCarrito()
+  router.push('/pago')
+}
 
 const getImageUrl = (url) => `http://localhost:8000/${url}`
 </script>

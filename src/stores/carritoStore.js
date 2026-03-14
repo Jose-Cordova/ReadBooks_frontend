@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { useAuthStore } from './authStore'
 import { metodosPagosService } from '@/services/metodosPagosService'
+import { ventaService } from '@/services/ventaService'
 
 export const useCarritoStore = defineStore('carrito', {
   state: () => ({
@@ -64,6 +65,29 @@ export const useCarritoStore = defineStore('carrito', {
     },
     setMetodoPago(id){
       this.pagoSeleccionado = id
+    },
+    async procesarPago(){
+      const datosVenta = {
+        metodo_pago_id: this.pagoSeleccionado,
+        items: this.items.map(libro => ({libro_id: libro.id}))
+      }
+      try{
+        //Se mandan los datos al backend y se espera una respuesta
+        const response = await ventaService.iniciarCompra(datosVenta)
+        return response.data.client_secret //Llave para pagar con stripe
+      }catch(error){
+        console.error("Error al iniciar la venta", error)
+        throw error
+      }
+    },
+    vaciarCarrito(){
+      const authStore = useAuthStore()
+      const userId = authStore.user?.id
+
+      if(userId){
+        this.carritoPorUsuario[userId] = []
+        this.pagoSeleccionado = null
+      }
     }
   }
 })
