@@ -29,9 +29,15 @@
         <span class="text-2xl font-bold">
           ${{libro.precio_actual}}
         </span>
-
         <button
-          v-if="authStore.isAuthenticated && authStore.isCliente"
+          v-if="authStore.isAuthenticated && authStore.isCliente && authStore.tieneLibro(libro.id)"
+          disabled
+          class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-bold opacity-80 cursor-not-allowed border-2 border-black">
+          <i class="pi pi-check-circle mr-1"></i>
+          Comprado
+        </button>
+        <button
+          v-else-if="authStore.isAuthenticated && authStore.isCliente"
           @click.stop="carritoStore.agregarLibro(libro)"
           class="bg-[#1a1625] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-opacity-90 transition shadow-md active:scale-95">
           Añadir al carrito
