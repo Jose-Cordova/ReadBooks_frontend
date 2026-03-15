@@ -20,6 +20,12 @@ export const useAuthStore = defineStore('auth', {
     },
     isCliente: (state) => {
       return state.user?.roles?.some(role => role.name === 'CLIENTE')
+    },
+    //Verificamos si el usuario tiene el libro comprado
+    tieneLibro: (state) => (libroId) => {
+      if(!state.user || !state.user.usuario_libros) return false
+      //Buscamos si el libro esta en su colecion
+      return state.user.usuario_libros.some(ul => ul.libro_id === libroId)
     }
   },
 
@@ -72,6 +78,15 @@ export const useAuthStore = defineStore('auth', {
       } finally {
         this.$reset()
         router.push('/')
+      }
+    },
+
+    async fetchUser(){
+      try{
+        const {data} = await api.get('/auth/me')
+        this.user = data //Actualizamos con los datos nuevos
+      }catch(error){
+        console.error("Error al actaulizar los datos del usuario.", error)
       }
     }
   }
