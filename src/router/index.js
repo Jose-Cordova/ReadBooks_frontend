@@ -29,6 +29,11 @@ const router = createRouter({
       name: 'registro',
       component: () => import('../views/Register.vue'),
     },
+    {
+      path: '/mi-biblioteca',
+      name: ' mi-biblioteca',
+      component: () => import('../views/BibliotecaView.vue')
+    }
   ],
 })
 
