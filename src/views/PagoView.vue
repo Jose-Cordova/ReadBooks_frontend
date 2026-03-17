@@ -116,8 +116,13 @@
         carritoStore.vaciarCarrito()
         //Refrecamos los datos del usuario
         await authStore.fetchUser()
-        Swal.fire('¡Pago Exitoso!', 'Tus libros ya están en Mi Biblioteca', 'success')
-        setTimeout(() => router.push('/'), 4000)
+        await Swal.fire({
+          title: '¡Pago Exitoso!',
+          text: 'Tus libros ya están en Mi Biblioteca',
+          icon: 'success',
+          confirmButtonColor: '#1a1625'
+        })
+        router.push('/')
       }
     }catch(err){
       Swal.fire('Error', 'No se pudo procesar la transacción', err)
