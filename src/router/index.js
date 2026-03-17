@@ -33,7 +33,14 @@ const router = createRouter({
       path: '/mi-biblioteca',
       name: ' mi-biblioteca',
       component: () => import('../views/BibliotecaView.vue')
-    }
+    },
+  {
+  path: '/dashboard',
+  name: 'admin-dashboard',
+  component: () => import('@/views/admin/Dashboard.vue'),
+  meta: { requiresAuth: true, role: 'ADMIN' }
+}
+
   ],
 })
 

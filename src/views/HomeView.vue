@@ -5,6 +5,7 @@
     <SearchBar />
     <LibroGrid />
     <CarritoModal />
+    <Footer />
   </div>
 </template>
 
@@ -14,4 +15,5 @@
   import SearchBar from "@/components/home/SearchBar.vue";
   import LibroGrid from "@/components/home/LibroGrid.vue";
   import CarritoModal from "@/components/home/CarritoModal.vue";
+  import Footer from "@/components/layouts/Footer.vue"
 </script>
