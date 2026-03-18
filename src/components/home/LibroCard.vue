@@ -1,5 +1,6 @@
 <template>
-  <div class="border-2 border-black p-4 flex flex-col h-full bg-gray-200 transition-all duration-300 hover:bg-white hover:shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-1 hover:-translate-y-1 group cursor-pointer">
+  <div @click="$router.push({name: 'libro-detalle', params: {id: libro.id}})"
+    class="border-2 border-black p-4 flex flex-col h-full bg-gray-200 transition-all duration-300 hover:bg-white hover:shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-1 hover:-translate-y-1 group cursor-pointer">
     <!-- Contenedor Imagen -->
     <div class="border-b-2 border-black mb-4 bg-gray-300 aspect-square flex items-center justify-center overflow-hidden">
       <img
@@ -40,6 +41,7 @@
           v-else-if="authStore.isAuthenticated && authStore.isCliente"
           @click.stop="carritoStore.agregarLibro(libro)"
           class="bg-[#1a1625] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-opacity-90 transition shadow-md active:scale-95">
+          <i class="pi pi-shopping-cart mr-2"></i>
           Añadir al carrito
         </button>
       </div>
