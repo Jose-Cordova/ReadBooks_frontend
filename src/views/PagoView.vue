@@ -78,7 +78,7 @@
 
   onMounted(async () => {
     //Cargamos stripe con la lleve publica
-    stripe = await loadStripe('pk_test_51T75gcF0dapVGVxjSfNjCXIpodUyrzmB4uf4PxfbAz81io1FkBHNJj21PIrUXk8U3eInD7oFhoZ4mRFSzD7Of60O00HbgS80Bj')
+    stripe = await loadStripe('pk_test_51T61f3Qbc13nmlnSfGMfk45KtN63t3hrEfcnqeTBMbjQ6JZBcStYk659cgiH5OxljAF83iOjGxRPH6PSf35i4GPl00zKeVzbkd')
     elements = stripe.elements()
 
     //Estilo para el campo de stripe
