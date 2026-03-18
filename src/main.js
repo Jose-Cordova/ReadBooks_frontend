@@ -4,6 +4,8 @@ import router from "./router";
 import { createPinia } from "pinia";
 import PrimeVue from "primevue/config";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
+import Calendar from "primevue/calendar";
+import Dropdown from "primevue/dropdown";
 
 // 1. IMPORTAR ESTILOS DE Tailwind
 import "./assets/main.css";
@@ -23,3 +25,5 @@ app.use(pinia);
 app.use(router);
 app.use(PrimeVue);
 app.mount("#app");
+app.component("Calendar", Calendar);
+app.component("Dropdown", Dropdown);

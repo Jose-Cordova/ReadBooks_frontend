@@ -1,6 +1,5 @@
 <template>
   <div class="min-h-screen flex flex-col" style="background-color: #f3f4f6;">
-
     <Navbar />
 
     <!-- Encabezado -->
@@ -9,7 +8,7 @@
       <p class="text-gray-500 mt-1">Administra tu librería con facilidad</p>
     </div>
 
-   
+
     <div class="max-w-6xl mx-auto px-4 w-full flex-1">
       <div class="flex border border-gray-300 rounded-t-lg overflow-hidden">
         <button
@@ -94,28 +93,35 @@
           <p class="text-gray-500 text-sm">Consulta y filtra las ventas realizadas</p>
         </div>
 
-        <div class="flex flex-col md:flex-row gap-4 mb-6">
-          <div class="flex flex-col gap-1">
-            <label class="text-sm font-semibold text-gray-700">Fecha inicio</label>
-            <input v-model="filtroFechaInicio" type="date"
-              class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500" />
-          </div>
-          <div class="flex flex-col gap-1">
-            <label class="text-sm font-semibold text-gray-700">Fecha fin</label>
-            <input v-model="filtroFechaFin" type="date"
-              class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500" />
-          </div>
-          <div class="flex items-end gap-2">
-            <button @click="cargarVentas"
-              class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg transition">
-              <i class="pi pi-search"></i> Filtrar
-            </button>
-            <button @click="limpiarFiltros"
-              class="flex items-center gap-2 px-4 py-2 border border-gray-300 hover:bg-gray-50 text-gray-600 text-sm font-semibold rounded-lg transition">
-              <i class="pi pi-times"></i> Limpiar
-            </button>
-          </div>
-        </div>
+<div class="flex flex-col md:flex-row gap-4 mb-6">
+  <div class="flex flex-col gap-1">
+    <label class="text-sm font-semibold text-gray-700">Fecha inicio</label>
+    <input v-model="filtroFechaInicio" type="date"
+      class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500" />
+  </div>
+  <div class="flex flex-col gap-1">
+    <label class="text-sm font-semibold text-gray-700">Fecha fin</label>
+    <input v-model="filtroFechaFin" type="date"
+      class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500" />
+  </div>
+  <div class="flex items-end gap-2">
+    <button @click="cargarVentas"
+      class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg transition">
+      <i class="pi pi-search"></i> Filtrar
+    </button>
+    <button @click="limpiarFiltros"
+      class="flex items-center gap-2 px-4 py-2 border border-gray-300 hover:bg-gray-50 text-gray-600 text-sm font-semibold rounded-lg transition">
+      <i class="pi pi-times"></i> Limpiar
+    </button>
+  </div>
+  <div class="flex items-end md:ml-auto">
+  <button @click="exportarPDF"
+    class="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-lg transition">
+    <i class="pi pi-file-pdf"></i>
+    Exportar PDF
+  </button>
+</div>
+</div>
 
         <div v-if="cargandoVentas" class="text-center py-12 text-gray-400">
           <i class="pi pi-spin pi-spinner text-3xl"></i>
@@ -350,6 +356,13 @@ const limpiarFiltros = () => {
 const cambiarTabVentas = () => {
   tabActivo.value = 'ventas'
   cargarVentas()
+}
+
+const exportarPDF = () => {
+  const url = new URL('http://localhost:8000/api/reportes/ventas')
+  if (filtroFechaInicio.value) url.searchParams.append('fecha_inicio', filtroFechaInicio.value)
+  if (filtroFechaFin.value)    url.searchParams.append('fecha_fin', filtroFechaFin.value)
+  window.open(url.toString(), '_blank')
 }
 
 onMounted(() => {
