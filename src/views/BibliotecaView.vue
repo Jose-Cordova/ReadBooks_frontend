@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-gray-50 min-h-screen py-12 px-4">
-    <div class="max-w-7xl mx-auto">
+  <div class="bg-gray-50 min-h-screen flex flex-col">
+    <div class="max-w-7xl mx-auto py-12 px-4 flex-grow">
       <HeroBiblioteca />
       <BibliotecaGrid />
     </div>

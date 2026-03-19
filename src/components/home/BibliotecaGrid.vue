@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="w-full h-full">
     <div v-if="bibliotecaStore.loading" class="flex flex-col items-center justify-center py-16">
       <i class="pi pi-spin pi-spinner text-5xl text-[#1b4396] mb-4"></i>
       <h2 class="text-xl font-bold text-gray-700 font-serif">Buscando tus libros...</h2>

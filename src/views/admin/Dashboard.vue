@@ -1,6 +1,5 @@
 <template>
   <div class="min-h-screen flex flex-col" style="background-color: #f3f4f6;">
-    <Navbar />
 
     <!-- Encabezado -->
     <div class="text-center py-8">
@@ -260,8 +259,6 @@
       </div>
     </transition>
 
-    <Footer />
-
   </div>
 </template>
 
@@ -271,8 +268,6 @@ import { librosService } from '@/services/librosService'
 import api from '@/services/api'
 import Swal from 'sweetalert2'
 import 'primeicons/primeicons.css'
-import Navbar from '@/components/layouts/Navbar.vue'
-import Footer from '@/components/layouts/Footer.vue'
 
 const libros          = ref([])
 const categorias      = ref([])
@@ -450,7 +445,6 @@ const guardarLibro = async () => {
         : 'El libro fue agregado correctamente.',
       icon: 'success',
       confirmButtonColor: '#2563eb',
-      timer: 2500,
       timerProgressBar: true
     })
 
