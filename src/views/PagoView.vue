@@ -1,6 +1,5 @@
 <template>
   <div class="min-h-screen bg-gray-200 pb-12">
-    <Navbar />
     <div class="container mx-auto px-4 max-w-6xl">
       <!-- Encabezado -->
       <div class="text-center mb-10">
@@ -58,7 +57,6 @@
 </template>
 
 <script setup>
-  import Navbar from '@/components/layouts/Navbar.vue';
   import { onMounted, ref } from 'vue';
   import { loadStripe } from '@stripe/stripe-js';
   import { useRouter } from 'vue-router';

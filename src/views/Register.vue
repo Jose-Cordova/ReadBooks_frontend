@@ -89,12 +89,23 @@ const sendRegister = async () => {
         errorMessage.value = "Las contraseñas no coinciden.";
         return;
     }
+
+    if(form.password.length < 8){
+      errorMessage.value = "La contraseña debe tener al menos 8 caracteres.";
+      return;
+    }
     await authStore.register(form);
   } catch (err) {
-    if (err.response.status === 422) {
-      console.log(err.response);
-    } else {
-      errorMessage.value = "Error al registrar el usuario";
+    if (err.response?.status === 422) {
+      const errores = err.response.data;
+      if(errores.email){
+        errorMessage.value = "Este correo electrónico ya está en uso.";
+      }else{
+        errorMessage.value = "Los datos ingresados no son válidos."
+      }
+    }
+    else {
+      errorMessage.value = "Error al registrar. Intenta de nuevo."
     }
   } finally {
     loading.value = false;

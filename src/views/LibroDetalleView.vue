@@ -1,6 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-200 pt-18 pb-12">
-    <Navbar />
+  <div class="min-h-screen bg-gray-200 pt-20 pb-12">
     <CarritoModal />
     <div class="container mx-auto px-4 max-w-6xl">
       <button @click="$router.back()"  class="flex items-center gap-2 text-black hover:bg-white border-2 border-black p-2 mb-8 transition-all
@@ -60,18 +59,15 @@
       </div>
     </div>
   </div>
-  <Footer />
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import Navbar from '@/components/layouts/Navbar.vue';
 import { librosService } from '@/services/librosService';
 import { useAuthStore } from '@/stores/authStore';
 import { useCarritoStore } from '@/stores/carritoStore';
 import CarritoModal from '@/components/home/CarritoModal.vue';
-import Footer from '@/components/layouts/Footer.vue';
 
 const route = useRoute()
 const authStore = useAuthStore()
